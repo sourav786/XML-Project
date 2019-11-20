@@ -37,7 +37,9 @@ namespace NewYork_CIty_School_Data_With_Crime_Rate_History.Pages
                         {
                             var x = new MergedData();
                             x.Dbn = schoolDatum.Dbn;
+                            x.SchoolName = schoolDatum.SchoolName;
                             x.Address = crimeDatum.Address;
+                            x.CrimeRate = crimeDatum.AvgofnocrimN.ToString();
 
                             mergedData.Add(x);
                         }
@@ -51,5 +53,4 @@ namespace NewYork_CIty_School_Data_With_Crime_Rate_History.Pages
 
 
         }
-    }
 }

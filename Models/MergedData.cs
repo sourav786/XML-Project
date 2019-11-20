@@ -21,6 +21,8 @@ namespace CombinedData
         [JsonProperty("location_name")]
         public string LocationName { get; set; }
 
+        [JsonProperty("avgofnocrim_n")]
+        public string CrimeRate { get; set; }
 
     }
 }
