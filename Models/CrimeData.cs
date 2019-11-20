@@ -17,6 +17,7 @@ namespace NewYorkCityCrimeData
 
     public partial class CrimeData
     {
+        
         [JsonProperty("id")]
         [JsonConverter(typeof(ParseStringConverter))]
         public long Id { get; set; }
@@ -24,6 +25,7 @@ namespace NewYorkCityCrimeData
         [JsonProperty("building_code")]
         public string BuildingCode { get; set; }
 
+        [Required]
         [JsonProperty("dbn", NullValueHandling = NullValueHandling.Ignore)]
         public string Dbn { get; set; }
 
