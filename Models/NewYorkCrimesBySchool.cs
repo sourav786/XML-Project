@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+/// <summary>
+/// This is the combined class from the NewYorkCrime and NewYorkSchool class
+/// </summary>
 namespace CombinedData
 {
-    public class MergedData
+    public class NewYorkCrimesBySchool
     {
 
         [JsonProperty("dbn")]
