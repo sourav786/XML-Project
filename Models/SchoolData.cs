@@ -14,18 +14,21 @@ namespace NewYorkCitySchoolData
     using System.Globalization;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+    using System.Runtime.Serialization;
 
+    [DataContract]
     public partial class SchoolData
     {
         [JsonProperty("dbn")]
         public string Dbn { get; set; }
 
+        [DataMember]
         [JsonProperty("school_name")]
         public string SchoolName { get; set; }
 
         [JsonProperty("borocode")]
         public Borocode Borocode { get; set; }
-
+        [DataMember]
         [JsonProperty("overview_paragraph")]
         public string OverviewParagraph { get; set; }
 
@@ -58,7 +61,7 @@ namespace NewYorkCitySchoolData
 
         [JsonProperty("primary_address_line_1")]
         public string PrimaryAddressLine1 { get; set; }
-
+        [DataMember]
         [JsonProperty("city")]
         public string City { get; set; }
 
@@ -93,6 +96,7 @@ namespace NewYorkCitySchoolData
         [JsonProperty("bus")]
         public string Bus { get; set; }
 
+        [DataMember]
         [JsonProperty("grades2019")]
         public Grades2019 Grades2019 { get; set; }
 
@@ -133,6 +137,7 @@ namespace NewYorkCitySchoolData
         [JsonProperty("pct_stu_enough_variety", NullValueHandling = NullValueHandling.Ignore)]
         public string PctStuEnoughVariety { get; set; }
 
+        [DataMember]
         [JsonProperty("college_career_rate", NullValueHandling = NullValueHandling.Ignore)]
         public string CollegeCareerRate { get; set; }
 
@@ -167,6 +172,7 @@ namespace NewYorkCitySchoolData
         [JsonProperty("interest1")]
         public Interest1 Interest1 { get; set; }
 
+        [DataMember]
         [JsonProperty("method1")]
         public Method Method1 { get; set; }
 
@@ -203,6 +209,7 @@ namespace NewYorkCitySchoolData
         [JsonProperty("seats101")]
         public Seats101 Seats101 { get; set; }
 
+        [DataMember]
         [JsonProperty("admissionspriority11", NullValueHandling = NullValueHandling.Ignore)]
         public string Admissionspriority11 { get; set; }
 
@@ -279,6 +286,7 @@ namespace NewYorkCitySchoolData
         [JsonConverter(typeof(ParseStringConverter))]
         public long? Earlycollege { get; set; }
 
+        [DataMember]
         [JsonProperty("prgdesc1", NullValueHandling = NullValueHandling.Ignore)]
         public string Prgdesc1 { get; set; }
 
@@ -1178,7 +1186,7 @@ namespace NewYorkCitySchoolData
         [JsonProperty("requirement8_2", NullValueHandling = NullValueHandling.Ignore)]
         public string Requirement82 { get; set; }
     }
-
+    [DataContract]
     public partial class GeocodedColumn
     {
         [JsonProperty("type")]
@@ -1187,7 +1195,7 @@ namespace NewYorkCitySchoolData
         [JsonProperty("coordinates")]
         public double[] Coordinates { get; set; }
     }
-
+    [DataContract]
     public partial class Requirement44
     {
         [JsonProperty("url")]
@@ -1196,31 +1204,31 @@ namespace NewYorkCitySchoolData
         [JsonProperty("description")]
         public string Description { get; set; }
     }
-
+    [DataContract]
     public enum Admissionspriority { ThenToBrooklynStudentsOrResidents, ThenToNewYorkCityResidents, ThenToQueensStudentsOrResidents };
-
+    [DataContract]
     public enum Borocode { K, M, Q, R, X };
-
+    [DataContract]
     public enum Borough { Bronx, Brooklyn, Manhattan, Queens, StatenIs };
-
+    [DataContract]
     public enum Diplomaendorsements { ArtsCteMathScience, ArtsCteScience, Math, MathScience, Science };
-
+    [DataContract]
     public enum TypeEnum { Point };
-
+    [DataContract]
     public enum ArakGroundhog { N, NANewProgram, NATransferSchool, NAZonedProgram, Y };
-
+    [DataContract]
     public enum Grades2019 { KTo12, PkTo12, The6To11, The6To12, The7To12, The9To12 };
-
+    [DataContract]
     public enum Interest1 { AnimalScience, Architecture, Business, Communications, ComputerScienceTechnology, Cosmetology, CulinaryArts, Engineering, EnvironmentalScience, FilmVideo, HealthProfessions, HospitalityTravelTourism, HumanitiesInterdisciplinary, Jrotc, LawGovernment, PerformingArts, PerformingArtsVisualArtDesign, ProjectBasedLearning, ScienceMath, Teaching, VisualArtDesign, Zoned };
-
+    [DataContract]
     public enum Method { AsdAcesProgram, Audition, D75SpecialEducationInclusiveServices, EdOpt, Open, Screened, ScreenedLanguage, ScreenedLanguageAcademics, Test, Transfer, ZonedGuarantee, ZonedPriority };
-
+    [DataContract]
     public enum SchoolAccessibility { FullyAccessible, NotAccessible, PartiallyAccessible };
-
+    [DataContract]
     public enum Seats101 { No, Yes };
-
+    [DataContract]
     public enum StateCode { Ny };
-
+    [DataContract]
     public partial struct TrapaniSnowLeopard
     {
         public ArakGroundhog? Enum;
@@ -1234,12 +1242,12 @@ namespace NewYorkCitySchoolData
     {
         public static SchoolData[] FromJson(string json) => JsonConvert.DeserializeObject<SchoolData[]>(json, NewYorkCitySchoolData.Converter.Settings);
     }
-
+    [DataContract]
     public static class Serialize
     {
         public static string ToJson(this SchoolData[] self) => JsonConvert.SerializeObject(self, NewYorkCitySchoolData.Converter.Settings);
     }
-
+    [DataContract]
     internal static class Converter
     {
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
@@ -1265,7 +1273,7 @@ namespace NewYorkCitySchoolData
             },
         };
     }
-
+    [DataContract]
     internal class ParseStringConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(long) || t == typeof(long?);
@@ -1296,7 +1304,7 @@ namespace NewYorkCitySchoolData
 
         public static readonly ParseStringConverter Singleton = new ParseStringConverter();
     }
-
+    [DataContract]
     internal class AdmissionspriorityConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Admissionspriority) || t == typeof(Admissionspriority?);
@@ -1342,7 +1350,7 @@ namespace NewYorkCitySchoolData
 
         public static readonly AdmissionspriorityConverter Singleton = new AdmissionspriorityConverter();
     }
-
+    [DataContract]
     internal class BorocodeConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Borocode) || t == typeof(Borocode?);
@@ -1398,7 +1406,7 @@ namespace NewYorkCitySchoolData
 
         public static readonly BorocodeConverter Singleton = new BorocodeConverter();
     }
-
+    [DataContract]
     internal class BoroughConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Borough) || t == typeof(Borough?);
@@ -1454,7 +1462,7 @@ namespace NewYorkCitySchoolData
 
         public static readonly BoroughConverter Singleton = new BoroughConverter();
     }
-
+    [DataContract]
     internal class DiplomaendorsementsConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Diplomaendorsements) || t == typeof(Diplomaendorsements?);
@@ -1510,7 +1518,7 @@ namespace NewYorkCitySchoolData
 
         public static readonly DiplomaendorsementsConverter Singleton = new DiplomaendorsementsConverter();
     }
-
+    [DataContract]
     internal class TypeEnumConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(TypeEnum) || t == typeof(TypeEnum?);
@@ -1544,7 +1552,7 @@ namespace NewYorkCitySchoolData
 
         public static readonly TypeEnumConverter Singleton = new TypeEnumConverter();
     }
-
+    [DataContract]
     internal class ArakGroundhogConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(ArakGroundhog) || t == typeof(ArakGroundhog?);
@@ -1600,7 +1608,7 @@ namespace NewYorkCitySchoolData
 
         public static readonly ArakGroundhogConverter Singleton = new ArakGroundhogConverter();
     }
-
+    [DataContract]
     internal class TrapaniSnowLeopardConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(TrapaniSnowLeopard) || t == typeof(TrapaniSnowLeopard?);
@@ -1669,7 +1677,7 @@ namespace NewYorkCitySchoolData
 
         public static readonly TrapaniSnowLeopardConverter Singleton = new TrapaniSnowLeopardConverter();
     }
-
+    [DataContract]
     internal class Grades2019Converter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Grades2019) || t == typeof(Grades2019?);
@@ -1730,7 +1738,7 @@ namespace NewYorkCitySchoolData
 
         public static readonly Grades2019Converter Singleton = new Grades2019Converter();
     }
-
+    [DataContract]
     internal class Interest1Converter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Interest1) || t == typeof(Interest1?);
@@ -1871,7 +1879,7 @@ namespace NewYorkCitySchoolData
 
         public static readonly Interest1Converter Singleton = new Interest1Converter();
     }
-
+    [DataContract]
     internal class MethodConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Method) || t == typeof(Method?);
@@ -1962,7 +1970,7 @@ namespace NewYorkCitySchoolData
 
         public static readonly MethodConverter Singleton = new MethodConverter();
     }
-
+    [DataContract]
     internal class SchoolAccessibilityConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(SchoolAccessibility) || t == typeof(SchoolAccessibility?);
@@ -2008,7 +2016,7 @@ namespace NewYorkCitySchoolData
 
         public static readonly SchoolAccessibilityConverter Singleton = new SchoolAccessibilityConverter();
     }
-
+    [DataContract]
     internal class Seats101Converter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Seats101) || t == typeof(Seats101?);
@@ -2049,7 +2057,7 @@ namespace NewYorkCitySchoolData
 
         public static readonly Seats101Converter Singleton = new Seats101Converter();
     }
-
+    [DataContract]
     internal class StateCodeConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(StateCode) || t == typeof(StateCode?);

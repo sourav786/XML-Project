@@ -14,7 +14,9 @@ namespace NewYorkCityCrimeData
     using System.Globalization;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+    using System.Runtime.Serialization;
 
+    [DataContract]
     public partial class CrimeData
     {
         [JsonProperty("id")]
@@ -53,18 +55,23 @@ namespace NewYorkCityCrimeData
         [JsonProperty("schools_in_building")]
         public string SchoolsInBuilding { get; set; }
 
+        [DataMember]
         [JsonProperty("major_n")]
         public MajorN MajorN { get; set; }
 
+        [DataMember]
         [JsonProperty("oth_n")]
         public MajorN OthN { get; set; }
 
+        [DataMember]
         [JsonProperty("nocrim_n")]
         public MajorN NocrimN { get; set; }
 
+        [DataMember]
         [JsonProperty("prop_n")]
         public MajorN PropN { get; set; }
 
+        [DataMember]
         [JsonProperty("vio_n")]
         public MajorN VioN { get; set; }
 
@@ -115,7 +122,7 @@ namespace NewYorkCityCrimeData
         [JsonProperty("building_name", NullValueHandling = NullValueHandling.Ignore)]
         public string BuildingName { get; set; }
     }
-
+    [DataContract]
     public partial class GeocodedColumn
     {
         [JsonProperty("type")]
@@ -124,23 +131,23 @@ namespace NewYorkCityCrimeData
         [JsonProperty("coordinates")]
         public double[] Coordinates { get; set; }
     }
-
+    [DataContract]
     public enum AvgofmajorN { NA, The025, The026, The038, The045, The061, The065, The109, The121, The135, The167 };
-
+    [DataContract]
     public enum AvgofnocrimN { NA, The1133, The169, The1850, The222, The2293, The241, The2536, The388, The610, The671, The714 };
-
+    [DataContract]
     public enum AvgofothN { NA, The088, The103, The113, The152, The255, The279, The295, The473, The733, The743, The991 };
-
+    [DataContract]
     public enum AvgofpropN { NA, The055, The057, The066, The083, The129, The148, The246, The329, The433, The500 };
-
+    [DataContract]
     public enum AvgofvioN { NA, The045, The057, The058, The091, The147, The148, The160, The292, The333, The373, The429 };
-
+    [DataContract]
     public enum Borough { K, M, Q, R, X };
-
+    [DataContract]
     public enum Engroupa { NA, The10C, The11C, The12C, The13C, The2C, The3C, The4C, The5C, The6C, The7C, The8C, The9C };
-
+    [DataContract]
     public enum TypeEnum { Point };
-
+    [DataContract]
     public enum Rangea { NA, The10011250, The1250, The12511500, The15011750, The17512000, The20012500, The25013000, The251500, The30014000, The4000, The501750, The7511000 };
 
     public partial struct MajorN
@@ -156,12 +163,12 @@ namespace NewYorkCityCrimeData
     {
         public static CrimeData[] FromJson(string json) => JsonConvert.DeserializeObject<CrimeData[]>(json, NewYorkCityCrimeData.Converter.Settings);
     }
-
+    [DataContract]
     public static class Serialize
     {
         public static string ToJson(this CrimeData[] self) => JsonConvert.SerializeObject(self, NewYorkCityCrimeData.Converter.Settings);
     }
-
+    [DataContract]
     internal static class Converter
     {
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
@@ -184,7 +191,7 @@ namespace NewYorkCityCrimeData
             },
         };
     }
-
+    [DataContract]
     internal class ParseStringConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(long) || t == typeof(long?);
@@ -215,7 +222,7 @@ namespace NewYorkCityCrimeData
 
         public static readonly ParseStringConverter Singleton = new ParseStringConverter();
     }
-
+    [DataContract]
     internal class AvgofmajorNConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(AvgofmajorN) || t == typeof(AvgofmajorN?);
@@ -301,7 +308,7 @@ namespace NewYorkCityCrimeData
 
         public static readonly AvgofmajorNConverter Singleton = new AvgofmajorNConverter();
     }
-
+    [DataContract]
     internal class AvgofnocrimNConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(AvgofnocrimN) || t == typeof(AvgofnocrimN?);
@@ -392,7 +399,7 @@ namespace NewYorkCityCrimeData
 
         public static readonly AvgofnocrimNConverter Singleton = new AvgofnocrimNConverter();
     }
-
+    [DataContract]
     internal class AvgofothNConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(AvgofothN) || t == typeof(AvgofothN?);
@@ -483,7 +490,7 @@ namespace NewYorkCityCrimeData
 
         public static readonly AvgofothNConverter Singleton = new AvgofothNConverter();
     }
-
+    [DataContract]
     internal class AvgofpropNConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(AvgofpropN) || t == typeof(AvgofpropN?);
@@ -569,7 +576,7 @@ namespace NewYorkCityCrimeData
 
         public static readonly AvgofpropNConverter Singleton = new AvgofpropNConverter();
     }
-
+    [DataContract]
     internal class AvgofvioNConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(AvgofvioN) || t == typeof(AvgofvioN?);
@@ -660,7 +667,7 @@ namespace NewYorkCityCrimeData
 
         public static readonly AvgofvioNConverter Singleton = new AvgofvioNConverter();
     }
-
+    [DataContract]
     internal class BoroughConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Borough) || t == typeof(Borough?);
@@ -716,7 +723,7 @@ namespace NewYorkCityCrimeData
 
         public static readonly BoroughConverter Singleton = new BoroughConverter();
     }
-
+    [DataContract]
     internal class EngroupaConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Engroupa) || t == typeof(Engroupa?);
@@ -812,7 +819,7 @@ namespace NewYorkCityCrimeData
 
         public static readonly EngroupaConverter Singleton = new EngroupaConverter();
     }
-
+    [DataContract]
     internal class TypeEnumConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(TypeEnum) || t == typeof(TypeEnum?);
@@ -846,7 +853,7 @@ namespace NewYorkCityCrimeData
 
         public static readonly TypeEnumConverter Singleton = new TypeEnumConverter();
     }
-
+    [DataContract]
     internal class MajorNConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(MajorN) || t == typeof(MajorN?);
@@ -955,7 +962,7 @@ namespace NewYorkCityCrimeData
 
         public static readonly MajorNConverter Singleton = new MajorNConverter();
     }
-
+    [DataContract]
     internal class RangeaConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Rangea) || t == typeof(Rangea?);
