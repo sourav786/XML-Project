@@ -20,12 +20,12 @@ namespace NewYork_CIty_School_Data_With_Crime_Rate_History.Pages
 
             using (WebClient webClient = new WebClient())
             {
-                string schoolJsonString = webClient.DownloadString("https://data.cityofnewyork.us/resource/23z9-6uk9.json");
+                string schoolJsonString = webClient.DownloadString("https://data.cityofnewyork.us/resource/23z9-6uk9.json?");
                 SchoolData[] schoolData = SchoolData.FromJson(schoolJsonString);
 
-                string crimeJsonString = webClient.DownloadString("https://data.cityofnewyork.us/resource/kwvk-z7i9.json");
+                string crimeJsonString = webClient.DownloadString("https://data.cityofnewyork.us/resource/kwvk-z7i9.json?");
                 CrimeData[] crimeData = CrimeData.FromJson(crimeJsonString);
-                              
+
 
                 // iterate over the specimens, to find which ones like water.
                 foreach (SchoolData schoolDatum in schoolData)
@@ -35,22 +35,30 @@ namespace NewYork_CIty_School_Data_With_Crime_Rate_History.Pages
                     {
                         if (schoolDatum.Dbn == crimeDatum.Dbn)
                         {
-                            var x = new MergedData();
+                            MergedData x = new MergedData();
                             x.Dbn = schoolDatum.Dbn;
                             x.SchoolName = schoolDatum.SchoolName;
+                            x.City = schoolDatum.City;
+                            x.SchoolEmail = schoolDatum.SchoolEmail;
+                            x.Website = schoolDatum.Website;
+                            x.GraduationRate = schoolDatum.GraduationRate;
+                            x.AttendanceRate = schoolDatum.AttendanceRate;
                             x.Address = crimeDatum.Address;
-                            x.CrimeRate = crimeDatum.AvgofnocrimN.ToString();
+                            x.CrimeRate = crimeDatum.AvgofmajorN.ToString();
+                           
+                            //x.AvgofnocrimN = crimeDatum.AvgofnocrimN.ToString();
 
                             mergedData.Add(x);
                         }
 
                     }
                 }
-                                                          
+
             }
 
             return new JsonResult(mergedData);
 
 
         }
+    }
 }

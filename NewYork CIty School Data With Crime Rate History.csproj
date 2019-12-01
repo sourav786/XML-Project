@@ -6,6 +6,10 @@
     <RootNamespace>NewYork_CIty_School_Data_With_Crime_Rate_History</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Pages\htmlpage.html" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
