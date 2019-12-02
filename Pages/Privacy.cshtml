@@ -12,27 +12,30 @@
     <input id="list" list="schooldata" style="width: 200px" />
     <datalist id="schooldata">
     </datalist>
-    <select name="cityArea">
-        <option value="none" selected disabled hidden>
-            Select an Option
-        </option>
-        <option value="ASTORIA">ASTORIA</option>
-        <option value="BAYSIDE">BAYSIDE</option>
-        <option value="BELLEROSE">BELLEROSE</option>
-        <option value="BRONX">BRONX</option>
-        <option value="BROOKLYN">BROOKLYN</option>
-        <option value="CAMBRIA HEIGHTS">CAMBRIA HEIGHTS</option>
-        <option value="CORONA">CORONA</option>
-        <option value="ELMHURST">ELMHURST</option>
-        <option value="FAR ROCKAWAY">FAR ROCKAWAY</option>
-        <option value="FLUSHING">FLUSHING</option>
-        <option value="JAMAICA">JAMAICA</option>
-        <option value="LONG ISLAND CITY">LONG ISLAND CITY</option>
-        <option value="MANHATTAN">Manhattan</option>
-        <option value="NEW YORK">NEW YORK</option>
-        <option value="OZONE PARK">OZONE PARK</option>
-        <option value="ROCKAWAY PARK">ROCKAWAY PARK</option>
-    </select>
+    <input id="city-area" list="citydata" style="width: 200px" />
+    <datalist id="citydata">
+    </datalist>
+    <!--  <select name="cityAreaTemp">
+          <option value="none" disabled hidden>
+              Select an Option
+          </option>
+          <option value="ASTORIA">ASTORIA</option>
+          <option value="BAYSIDE">BAYSIDE</option>
+          <option value="BELLEROSE">BELLEROSE</option>
+          <option value="BRONX">BRONX</option>
+          <option value="BROOKLYN">BROOKLYN</option>
+          <option value="CAMBRIA HEIGHTS">CAMBRIA HEIGHTS</option>
+          <option value="CORONA">CORONA</option>
+          <option value="ELMHURST">ELMHURST</option>
+          <option value="FAR ROCKAWAY">FAR ROCKAWAY</option>
+          <option value="FLUSHING">FLUSHING</option>
+          <option value="JAMAICA">JAMAICA</option>
+          <option value="LONG ISLAND CITY">LONG ISLAND CITY</option>
+          <option value="MANHATTAN">Manhattan</option>
+          <option value="NEW YORK">NEW YORK</option>
+          <option value="OZONE PARK">OZONE PARK</option>
+          <option value="ROCKAWAY PARK">ROCKAWAY PARK</option>
+      </select> -->
     <input type="submit" id="submitSchool" value="SearchSchool" />
     <input type="submit" id="submitCity" value="SearchCity" />
     <input type="button" id="clear" value="Clear" />
@@ -43,36 +46,13 @@
         <th>School Name</th>
         <th>Crime Rate</th>
         <th>City</th>
+        <th>School Email</th>
+        <th>Website</th>
+        <th>Graduation rate</th>
+        <th>Attendance rate</th>
+        <th>Address</th>
     </tr>
 </table>
-
-@if (Model.CallComplete)
-{
-    @foreach (var merged in mergedList)
-    {<tr>
-    <td> @merged.Dbn</td>
-
-    <td>@merged.SchoolName</td>
-
-    <td>@merged.City</td>
-
-    <td>@merged.Address</td>
-
-    <td>@merged.SchoolEmail</td>
-
-    <td>@merged.Website</td>
-
-    <td>@merged.AttendanceRate</td>
-
-    <td> @merged.GraduationRate</td>
-
-    <td>@merged.CrimeRate</td>
-
-    <br>
-</tr>
-    }
-
-}
 
 @section Scripts {
     <script>
@@ -81,38 +61,62 @@
 
             var datalist = [];
 
-            $("#submitSchool").on("click", function () {
+            $("#submitCity").on("click", function (e) {
+                e.preventDefault();
 
+                var searchterm = $("#city-area").val();
+                console.log(datalist[12][0]);
+                console.log(datalist[12][1]);
+                $("#searchout").empty();
 
+                $("#searchout").append('th>School Name</th><th>Crime Rate</th><th>City</th><th>School Email</th><th>Website</th><th>Graduation rate</th><th>Attendance rate</th><th>Address</th>');
+
+                for (i = 0; i < datalist.length; i++) {
+
+                    if (datalist[i][2] == searchterm) {
+                        var row = "";
+                        for (var j = 0; j < 8; j++) {
+                            row += '<td>' + datalist[i][j] + '</td>';
+                        }
+                        $("#searchout").append('<tr>' + row + '</tr>');
+                    }
+                }
+            });
+
+            $("#submitSchool").on("click", function (e) {
+                e.preventDefault();
                 var searchterm = $("#list").val();
                 var crimerate = "";
                 console.log(datalist[12][0]);
                 console.log(datalist[12][1]);
+                //$("#searchout").empty();
+
+               // $("#searchout").append('th>School Name</th><th>Crime Rate</th><th>City</th><th>School Email</th><th>Website</th><th>Graduation rate</th><th>Attendance rate</th><th>Address</th>');
+
 
                 for (i = 0; i < datalist.length; i++) {
 
                     if (datalist[i][0] == searchterm) {
-                        crimerate = datalist[i][1];
-
-
-
-                    }
+                        var row = "";
+                        for (var j = 0; j < 8; j++) {
+                            row += '<td>' + datalist[i][j] + '</td>';
+                        }
+                        $("#searchout").append('<tr>' + row + '</tr>');                    }
                 }
-                $("#searchout").append('<tr><td>' + searchterm + '</td><td>' + crimerate + '</td></tr>')
-
-
             });
             $("#clear").on("click", function () {
 
                 $("#searchout").empty();
 
-                $("#searchout").append('<tr><th>School Name</th><th>Crime Rate</th></tr>');
+                $("#searchout").append('th>School Name</th><th>Crime Rate</th><th>City</th><th>School Email</th><th>Website</th><th>Graduation rate</th><th>Attendance rate</th><th>Address</th>');
 
 
             });
 
 
             function loadData() {
+                var cities = new Set();
+                var optionCount = 0;
                 $.ajax({
                     url: "https://localhost:44322/index",
                     dataType: 'json',
@@ -120,11 +124,19 @@
                     method: 'GET'
                 }).done(function (responseJSON, status, xhr) {
                     $.each(responseJSON, function (index, item) {
-
+                        optionCount++;
                         var sname = item.school_name;
                         var crate = item.avgofnocrim_n;
+                        var city = item.city;
+                        var semail = item.school_email;
+                        var website = item.website;
+                        var grate = item.graduation_rate;
+                        var arate = item.attendance_rate;
+                        var address = item.address;
 
-                        var ndata = [sname, crate];
+                        cities.add(city);
+
+                        var ndata = [sname, crate, city, semail, website, grate, arate, address];
 
                         datalist.push(ndata);
 
@@ -135,7 +147,11 @@
                         //console.log(item.school_name);
 
                     });
+                    console.log(optionCount);
                     // console.log(datalist);
+                    for (var cityitem of cities) {
+                        $("#citydata").append('<option value="' + cityitem + '">');
+                    }
 
 
 
