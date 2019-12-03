@@ -87,8 +87,8 @@
                 $('#results').append('<div class="recent-search">' + searchterm + "</div>");
                 $("#list").val("");
                 $("#city-area").val("");
-                console.log(datalist[12][0]);
-                console.log(datalist[12][1]);
+                //console.log(datalist[12][0]);
+                //console.log(datalist[12][1]);
                 $("#searchout").empty();
 
                 $("#searchout").append('<th>School Name</th><th>Crime Rate</th><th>City</th><th>School Email</th><th>Website</th><th>Graduation rate</th><th>Attendance rate</th><th>Address</th>');
@@ -141,7 +141,7 @@
                 var cities = new Set();
                 var optionCount = 0;
                 $.ajax({
-                    url: "https://localhost:44322/mergedRaw",
+                    url: "/mergedRaw",
                     dataType: 'json',
                     contentType: 'application/json',
                     method: 'GET'

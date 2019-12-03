@@ -16,7 +16,7 @@ namespace NewYork_CIty_School_Data_With_Crime_Rate_History.Pages
         {
             using (var webClient = new WebClient())
             {
-                string cincinnatiAccidentsString = webClient.DownloadString("https://cincinnatiaccidents.azurewebsites.net/api/neighbourhoods/downtown");
+                string cincinnatiAccidentsString = webClient.DownloadString("https://cincinnatiaccidents.azurewebsites.net/api/accidents/downtown");
                 cincinnatiAccidents = CincinnatiAccident.FromJson(cincinnatiAccidentsString);
                 ViewData["cincinnatiAccidents"] = cincinnatiAccidents;
 
