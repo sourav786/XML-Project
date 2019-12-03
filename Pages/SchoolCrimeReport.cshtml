@@ -49,7 +49,7 @@
     <br /><input type="button" id="clear" value="Clear" />
 </form>
         </hr>
-<table class="table table-striped">
+<table class="table table-striped" id="searchout">
     <tr>
         <th>School Name</th>
         <th>Crime Rate</th>
@@ -73,11 +73,13 @@
                 e.preventDefault();
 
                 var searchterm = $("#city-area").val();
+                $("#list").val("");
+                $("#city-area").val("");
                 console.log(datalist[12][0]);
                 console.log(datalist[12][1]);
                 $("#searchout").empty();
 
-                $("#searchout").append('th>School Name</th><th>Crime Rate</th><th>City</th><th>School Email</th><th>Website</th><th>Graduation rate</th><th>Attendance rate</th><th>Address</th>');
+                $("#searchout").append('<th>School Name</th><th>Crime Rate</th><th>City</th><th>School Email</th><th>Website</th><th>Graduation rate</th><th>Attendance rate</th><th>Address</th>');
 
                 for (i = 0; i < datalist.length; i++) {
 
@@ -94,6 +96,8 @@
             $("#submitSchool").on("click", function (e) {
                 e.preventDefault();
                 var searchterm = $("#list").val();
+                $("#list").val("");
+                $("#city-area").val("");
                 var crimerate = "";
                 console.log(datalist[12][0]);
                 console.log(datalist[12][1]);
@@ -114,10 +118,12 @@
                 }
             });
             $("#clear").on("click", function () {
+                $("#list").val("");
+                $("#city-area").val("");
 
                 $("#searchout").empty();
 
-                $("#searchout").append('th>School Name</th><th>Crime Rate</th><th>City</th><th>School Email</th><th>Website</th><th>Graduation rate</th><th>Attendance rate</th><th>Address</th>');
+                $("#searchout").append('<th>School Name</th><th>Crime Rate</th><th>City</th><th>School Email</th><th>Website</th><th>Graduation rate</th><th>Attendance rate</th><th>Address</th>');
 
 
             });
@@ -127,7 +133,7 @@
                 var cities = new Set();
                 var optionCount = 0;
                 $.ajax({
-                    url: "https://localhost:44322/index",
+                    url: "https://localhost:44322/mergedRaw",
                     dataType: 'json',
                     contentType: 'application/json',
                     method: 'GET'
