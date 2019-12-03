@@ -7,6 +7,9 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+nav {
+background-color : aquamarine !important;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -18,8 +21,19 @@ html {
   }
 }
 
+#carouselExampleSlidesOnly img{
+
+height:500px;
+width : 800px;
+margin-bottom :20px ;
+}
+
+img .d-block {
+margin : auto;
+}
+
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
