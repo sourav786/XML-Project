@@ -1,0 +1,43 @@
+﻿@page
+@model NewYork_CIty_School_Data_With_Crime_Rate_History.Pages.CincinnatiAccidentsModel
+@{
+    ViewData["Title"] = "CincinnatiAccidents";
+    var cincinnatiAccidents = ViewData["cincinnatiAccidents"];
+}
+
+    <style>
+        body {
+            background-color: #a29090;
+        }
+    </style>
+
+<h1>Accident Record Cincinnati</h1>
+<p>Note: Data Consumed from fellow student</p>
+<table class="table table-dark">
+    <thead class="thead-dark">
+        <tr>
+            <th>Neighbourhood</th>
+            <th>Location</th>
+            <th>Accident Date</th>
+            <th>Accident type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var accident in ViewBag.cincinnatiAccidents)
+        {
+            <tr>
+                <td>@accident.Neighborhood</td>
+                <td>@accident.Address</td>
+                <td>@accident.AccidentDate</td>
+                @if (accident.AccidentType == "traffic")
+                {
+                    <td><span class="badge badge-primary">Traffic</span></td>
+                }
+                else
+                {
+                    <td><span class="badge badge-secondary">Fire</span></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

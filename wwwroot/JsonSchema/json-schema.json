@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/WelcomeElement"
+  },
+  "definitions": {
+    "WelcomeElement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dbn": {
+          "type": "string"
+        },
+        "school_name": {
+          "type": "string"
+        },
+        "city": {
+          "$ref": "#/definitions/City"
+        },
+        "school_email": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string",
+          "qt-uri-protocols": [
+            "http",
+            "https"
+          ]
+        },
+        "graduation_rate": {
+          "type": "string"
+        },
+        "attendance_rate": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "avgofnocrim_n": {
+          "$ref": "#/definitions/AvgofnocrimN"
+        }
+      },
+      "required": [
+        "address",
+        "avgofnocrim_n",
+        "city",
+        "dbn",
+        "school_email",
+        "school_name",
+        "website"
+      ],
+      "title": "WelcomeElement"
+    },
+    "AvgofnocrimN": {
+      "type": "string",
+      "enum": [
+        "NA",
+        "The025",
+        "The109",
+        "The038",
+        "The026",
+        "The061",
+        "The167",
+        "The045"
+      ],
+      "title": "AvgofnocrimN"
+    },
+    "City": {
+      "type": "string",
+      "enum": [
+        "BROOKLYN",
+        "MANHATTAN",
+        "FLUSHING",
+        "Manhattan",
+        "ROCKAWAY PARK",
+        "NEW YORK",
+        "ASTORIA",
+        "BRONX",
+        "OZONE PARK",
+        "SAINT ALBANS",
+        "FRESH MEADOWS"
+      ],
+      "title": "City"
+    }
+  }
+}
