@@ -4,13 +4,20 @@
     ViewData["Title"] = "School Details with Crime Report";
     List<CombinedData.MergedData>
     mergedList = (List<CombinedData.MergedData>)ViewData["MergedList"];
-}<style>
+}
+<style>
     body {
         background-color: #a29090;
     }
-    #clear, #submitCity, #list, #submitSchool, #city-area {
+
+    #clear,
+    #submitCity,
+    #list,
+    #submitSchool,
+    #city-area {
         margin: 5px 0px;
     }
+
     #history {
         position: absolute;
         width: 400px;
@@ -19,6 +26,7 @@
         border: 1px solid black;
         overflow: hidden;
     }
+
     .recent-search {
         padding: 5px;
         border: 1px solid black;
@@ -32,44 +40,26 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<h3>This Page provides user two functionality:</h3>
-           1: You can compare different Schools.
-<br />
-           2: You can get the list of all the schools in any city.
+<h3>This Page provides user two functionality:</h3> 1: You can compare different Schools.
+<br /> 2: You can get the list of all the schools in any city.
 <form method="post">
     <input id="list" list="schooldata" style="width: 200px" /> Enter School Name
     <datalist id="schooldata">
     </datalist>
-    <br /> <input type="submit" id="submitSchool" value="CompareSchool" /><br />
-    <br /> <input id="city-area" list="citydata" style="width: 200px" /> Enter City
+    <br />
+    <input type="submit" id="submitSchool" value="CompareSchool" />
+    <br />
+    <br />
+    <input id="city-area" list="citydata" style="width: 200px" /> Enter City
     <datalist id="citydata">
     </datalist>
-    <!--  <select name="cityAreaTemp">
-        <option value="none" disabled hidden>
-            Select an Option
-        </option>
-        <option value="ASTORIA">ASTORIA</option>
-        <option value="BAYSIDE">BAYSIDE</option>
-        <option value="BELLEROSE">BELLEROSE</option>
-        <option value="BRONX">BRONX</option>
-        <option value="BROOKLYN">BROOKLYN</option>
-        <option value="CAMBRIA HEIGHTS">CAMBRIA HEIGHTS</option>
-        <option value="CORONA">CORONA</option>
-        <option value="ELMHURST">ELMHURST</option>
-        <option value="FAR ROCKAWAY">FAR ROCKAWAY</option>
-        <option value="FLUSHING">FLUSHING</option>
-        <option value="JAMAICA">JAMAICA</option>
-        <option value="LONG ISLAND CITY">LONG ISLAND CITY</option>
-        <option value="MANHATTAN">Manhattan</option>
-        <option value="NEW YORK">NEW YORK</option>
-        <option value="OZONE PARK">OZONE PARK</option>
-        <option value="ROCKAWAY PARK">ROCKAWAY PARK</option>
-    </select> -->
 
-    <br /> <input type="submit" id="submitCity" value="SearchCity" />
-    <br /><input type="button" id="clear" value="Clear" />
+    <br />
+    <input type="submit" id="submitCity" value="SearchCity" />
+    <br />
+    <input type="button" id="clear" value="Clear" />
 </form>
-        </hr>
+</hr>
 <table class="table table-striped" id="searchout">
     <tr>
         <th>School Name</th>
@@ -94,7 +84,7 @@
                 e.preventDefault();
 
                 var searchterm = $("#city-area").val();
-                $('#results').append('<div class="recent-search">'+searchterm+"</div>");
+                $('#results').append('<div class="recent-search">' + searchterm + "</div>");
                 $("#list").val("");
                 $("#city-area").val("");
                 console.log(datalist[12][0]);
@@ -118,16 +108,12 @@
             $("#submitSchool").on("click", function (e) {
                 e.preventDefault();
                 var searchterm = $("#list").val();
-                $('#results').append('<div class="recent-search">'+searchterm+"</div>");
+                $('#results').append('<div class="recent-search">' + searchterm + "</div>");
                 $("#list").val("");
                 $("#city-area").val("");
                 var crimerate = "";
                 console.log(datalist[12][0]);
                 console.log(datalist[12][1]);
-                //$("#searchout").empty();
-
-                // $("#searchout").append('th>School Name</th><th>Crime Rate</th><th>City</th><th>School Email</th><th>Website</th><th>Graduation rate</th><th>Attendance rate</th><th>Address</th>');
-
 
                 for (i = 0; i < datalist.length; i++) {
 
@@ -149,9 +135,7 @@
 
                 $("#searchout").append('<th>School Name</th><th>Crime Rate</th><th>City</th><th>School Email</th><th>Website</th><th>Graduation rate</th><th>Attendance rate</th><th>Address</th>');
 
-
             });
-
 
             function loadData() {
                 var cities = new Set();
@@ -179,20 +163,13 @@
 
                         datalist.push(ndata);
 
-                        //console.log(ndata);
-
                         $("#schooldata").append('<option value="' + item.school_name + '">');
-
-                        //console.log(item.school_name);
 
                     });
                     console.log(optionCount);
-                    // console.log(datalist);
                     for (var cityitem of cities) {
                         $("#citydata").append('<option value="' + cityitem + '">');
                     }
-
-
 
                 }).fail(function (xhr, status, error) {
                     console.log("fail", xhr, status, error);
@@ -203,4 +180,3 @@
         });
     </script>
 }
-

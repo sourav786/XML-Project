@@ -21,40 +21,6 @@ namespace NewYork_CIty_School_Data_With_Crime_Rate_History.Pages
         {
             var city = Request.Form["cityArea"];
 
-            /*using (WebClient webClient = new WebClient())
-            {
-                string schoolJsonString = webClient.DownloadString("https://data.cityofnewyork.us/resource/23z9-6uk9.json?city=" + city);
-                SchoolData[] schoolData = SchoolData.FromJson(schoolJsonString);
-
-                List<MergedData> mergedList = new List<MergedData>();
-
-                foreach (SchoolData school in schoolData)
-                {
-                    string crimeJsonString = webClient.DownloadString("https://data.cityofnewyork.us/resource/kwvk-z7i9.json?dbn=" + school.Dbn);
-                    CrimeData[] crimeData = CrimeData.FromJson(crimeJsonString);
-
-                        var x = new MergedData();
-                        x.Dbn = school.Dbn;
-                        x.SchoolName = school.SchoolName;
-
-                    x.City = school.City;
-                    x.SchoolEmail = school.SchoolEmail;
-                    x.Website = school.Website;
-                    x.GraduationRate = school.GraduationRate;
-                    x.AttendanceRate = school.AttendanceRate;
-                    x.Address = crimeDatum.Address;
-                    x.CrimeRate = crimeDatum.AvgofmajorN.ToString();
-                    x.LocationName = crimeDatum.LocationName;
-                    //x.AvgofnocrimN = crimeData.AvgofnocrimN;
-                    //x.CrimeRate = crimeData[0].Register;
-
-                    mergedList.Add(x);
-                }
-
-                ViewData["MergedList"] = mergedList;
-                CallComplete = true;
-            }*/
-
             using (WebClient webClient = new WebClient())
             {
                 string schoolJsonString = webClient.DownloadString("https://data.cityofnewyork.us/resource/23z9-6uk9.json?city=" + city);
@@ -83,9 +49,6 @@ namespace NewYork_CIty_School_Data_With_Crime_Rate_History.Pages
                             x.AttendanceRate = schoolDatum.AttendanceRate;
                             x.Address = crimeDatum.Address;
                             x.CrimeRate = crimeDatum.AvgofmajorN.ToString();
-                           // x.LocationName = crimeDatum.LocationName;
-                            //x.AvgofnocrimN = crimeDatum.AvgofnocrimN.ToString();
-
                             mergedList.Add(x);
                         }
                         ViewData["MergedList"] = mergedList;
