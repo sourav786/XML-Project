@@ -8,7 +8,28 @@
     body {
         background-color: #a29090;
     }
+    #clear, #submitCity, #list, #submitSchool, #city-area {
+        margin: 5px 0px;
+    }
+    #history {
+        position: absolute;
+        width: 400px;
+        height: 300px;
+        margin-left: 700px;
+        border: 1px solid black;
+        overflow: hidden;
+    }
+    .recent-search {
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
 </style>
+<div id="history">
+    <h3 style="padding:5px; border:2px solid black;">Recent Search</h3>
+    <div id="results"></div>
+</div>
+
 <h1>@ViewData["Title"]</h1>
 
 <h3>This Page provides user two functionality:</h3>
@@ -73,6 +94,7 @@
                 e.preventDefault();
 
                 var searchterm = $("#city-area").val();
+                $('#results').append('<div class="recent-search">'+searchterm+"</div>");
                 $("#list").val("");
                 $("#city-area").val("");
                 console.log(datalist[12][0]);
@@ -96,6 +118,7 @@
             $("#submitSchool").on("click", function (e) {
                 e.preventDefault();
                 var searchterm = $("#list").val();
+                $('#results').append('<div class="recent-search">'+searchterm+"</div>");
                 $("#list").val("");
                 $("#city-area").val("");
                 var crimerate = "";
@@ -119,6 +142,7 @@
             });
             $("#clear").on("click", function () {
                 $("#list").val("");
+                $("#results").empty();
                 $("#city-area").val("");
 
                 $("#searchout").empty();
